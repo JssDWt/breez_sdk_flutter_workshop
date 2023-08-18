@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class SendPaymentDialog extends StatefulWidget {
   const SendPaymentDialog({super.key});
 
@@ -25,7 +27,14 @@ class _SendPaymentDialogState extends State<SendPaymentDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            setState(() => _payInProgress = true);
+            sdk
+                .sendPayment(bolt11: invoiceController.text)
+                .then((_) => Navigator.of(context).pop())
+                .onError((error, stackTrace) =>
+                    debugPrint("ERROR in sendPayment: $error"));
+          },
           child: const Text("OK"),
         ),
         TextButton(
