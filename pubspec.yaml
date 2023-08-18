@@ -41,6 +41,8 @@ dependencies:
   path_provider: ^2.1.0
   qr_flutter: ^4.1.0
   fimber: ^0.7.0
+  breez_sdk:
+    path: ../breez-sdk/libs/sdk-flutter
 
 dev_dependencies:
   flutter_test:
