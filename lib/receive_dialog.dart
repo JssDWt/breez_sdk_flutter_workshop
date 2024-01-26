@@ -1,5 +1,8 @@
+import 'package:breez_sdk/bridge_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+import 'main.dart';
 
 class ReceivePaymentDialog extends StatefulWidget {
   const ReceivePaymentDialog({super.key});
@@ -15,7 +18,30 @@ class _ReceivePaymentDialogState extends State<ReceivePaymentDialog> {
   @override
   void initState() {
     super.initState();
-    _invoice = "random";
+    sdk.invoicePaidStream.listen((event) {
+      if (event.paymentHash == _paymentHash) {
+        Navigator.of(context).pop();
+      }
+    });
+
+    sdk
+        .receivePayment(
+          req: const ReceivePaymentRequest(
+            amountMsat: 10000000,
+            description: "My first Breez SDK invoice",
+          ),
+        )
+        .then(
+          (value) => setState(
+            () {
+              _invoice = value.lnInvoice.bolt11;
+              _paymentHash = value.lnInvoice.paymentHash;
+            },
+          ),
+        )
+        .onError(
+          (error, stackTrace) => debugPrint("ERROR in receivePayment: $error"),
+        );
   }
 
   @override
