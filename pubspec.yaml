@@ -41,6 +41,10 @@ dependencies:
   path_provider: ^2.1.2
   qr_flutter: ^4.1.0
   logging: ^1.2.0
+  breez_sdk:
+    git: 
+      url: https://github.com/breez/breez-sdk-flutter
+      ref: v0.2.15
 
 dev_dependencies:
   flutter_test:
