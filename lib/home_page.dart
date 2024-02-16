@@ -1,4 +1,5 @@
 import 'package:breez_sdk_flutter_workshop/balance.dart';
+import 'package:breez_sdk_flutter_workshop/payments.dart';
 import 'package:flutter/material.dart';
 
 import 'receive_dialog.dart';
@@ -54,6 +55,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               ],
+            ),
+            const Expanded(
+              child: PaymentsWidget(),
             )
           ],
         ),
