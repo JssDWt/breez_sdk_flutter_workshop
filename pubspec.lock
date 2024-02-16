@@ -61,11 +61,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.2.15"
-      resolved-ref: d4517045f60828f45baf69b65d2ac29c559482de
+      ref: "v0.3.1"
+      resolved-ref: bd470c4f3e3aa8a8c376c38c908b4feab065338c
       url: "https://github.com/breez/breez-sdk-flutter"
     source: git
-    version: "0.2.15"
+    version: "0.3.1"
   build:
     dependency: transitive
     description:
