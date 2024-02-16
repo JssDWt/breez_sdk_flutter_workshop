@@ -1,5 +1,4 @@
 import 'package:breez_sdk/breez_sdk.dart';
-import 'package:logging/logging.dart';
 import 'package:breez_sdk/bridge_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -9,14 +8,9 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'app.dart';
 import 'constants.dart';
 
+const loglevels = ['INFO', 'WARN', 'ERROR'];
 final sdk = BreezSDK();
-
 void main() async {
-  Logger.root.level = Level.ALL; // defaults to Level.INFO
-  Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
-  });
-
   WidgetsFlutterBinding.ensureInitialized();
   _startSdk();
   runApp(const App());
@@ -45,6 +39,11 @@ Future _startSdk() async {
 
   // Initialize flutter specific listeners and logs.
   sdk.initialize();
+  sdk.logStream.listen((event) {
+    if (loglevels.contains(event.level)) {
+      print('${event.level}: ${event.line}');
+    }
+  });
 
   // Connect
   await sdk.connect(config: config, seed: seed);
