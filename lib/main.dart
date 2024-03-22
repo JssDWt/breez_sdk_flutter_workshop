@@ -14,6 +14,7 @@ final sdk = BreezSDK();
 void main() async {
   Logger.root.level = Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
+    // ignore: avoid_print
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
 
@@ -44,7 +45,9 @@ Future _startSdk() async {
   config = config.copyWith(workingDir: workingDir);
 
   // Initialize flutter specific listeners and logs.
-  sdk.initialize();
+  if (!await sdk.isInitialized()) {
+    sdk.initialize();
+  }
 
   // Connect
   await sdk.connect(config: config, seed: seed);
