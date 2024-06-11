@@ -38,7 +38,9 @@ Future _startSdk() async {
   config = config.copyWith(workingDir: workingDir);
 
   // Initialize flutter specific listeners and logs.
-  sdk.initialize();
+  if (!await sdk.isInitialized()) {
+    sdk.initialize();
+  }
   sdk.logStream.listen((event) {
     if (loglevels.contains(event.level)) {
       print('${event.level}: ${event.line}');

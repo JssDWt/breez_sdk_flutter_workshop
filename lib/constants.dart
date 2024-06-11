@@ -1,2 +1,2 @@
-String greenlightInviteCode = ;
-String breezLspApiKey = ;
+String greenlightInviteCode = "";
+String breezLspApiKey = "";
