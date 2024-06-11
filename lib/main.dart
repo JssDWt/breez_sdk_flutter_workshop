@@ -48,5 +48,5 @@ Future _startSdk() async {
   });
 
   // Connect
-  await sdk.connect(config: config, seed: seed);
+  await sdk.connect(req: ConnectRequest(config: config, seed: seed));
 }

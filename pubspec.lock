@@ -61,11 +61,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.3.8"
-      resolved-ref: "34b4e5e2a8398ffad32834864d4a8cc130364e74"
+      ref: "v0.4.1"
+      resolved-ref: "78643edd0bf4af7a629605db89582c5abdcd6814"
       url: "https://github.com/breez/breez-sdk-flutter"
     source: git
-    version: "0.3.8"
+    version: "0.4.1"
   build:
     dependency: transitive
     description:
@@ -728,4 +728,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.3.0 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.19.0"
