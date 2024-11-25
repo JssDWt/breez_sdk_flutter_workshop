@@ -1,4 +1,7 @@
+import 'package:breez_sdk/bridge_generated.dart';
 import 'package:flutter/material.dart';
+
+import 'main.dart';
 
 class SendPaymentDialog extends StatefulWidget {
   const SendPaymentDialog({super.key});
@@ -27,6 +30,17 @@ class _SendPaymentDialogState extends State<SendPaymentDialog> {
         TextButton(
           onPressed: () {
             setState(() => _payInProgress = true);
+            SendPaymentRequest req = SendPaymentRequest(
+              bolt11: invoiceController.text,
+              useTrampoline: true,
+            );
+            sdk.sendPayment(req: req).then((_) {
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+            }).onError((error, stackTrace) {
+              debugPrint("ERROR in sendPayment: $error");
+            });
           },
           child: const Text("OK"),
         ),
