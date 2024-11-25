@@ -1,4 +1,7 @@
+import 'package:breez_sdk/bridge_generated.dart';
 import 'package:flutter/material.dart';
+
+import 'main.dart';
 
 class PaymentsWidget extends StatefulWidget {
   const PaymentsWidget({super.key});
@@ -8,24 +11,33 @@ class PaymentsWidget extends StatefulWidget {
 }
 
 class _PaymentsWidgetState extends State<PaymentsWidget> {
+  List<Payment> _payments = [];
+
   @override
   void initState() {
     super.initState();
+    sdk.paymentsStream.listen((event) {
+      setState(() => _payments = event);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 2,
+        itemCount: _payments.length,
         itemBuilder: (context, index) {
+          final payment = _payments[index];
+          final data = payment.details.data as LnPaymentDetails;
           return Card(
-            key: Key(index.toString()),
+            key: Key(data.paymentHash),
             child: ListTile(
               leading: Icon(
-                index % 2 == 0 ? Icons.add_rounded : Icons.remove_rounded,
+                payment.paymentType == PaymentType.Received
+                    ? Icons.add_rounded
+                    : Icons.remove_rounded,
               ),
-              title: Text('${index}234 sat'),
-              subtitle: Text('fee: $index sat'),
+              title: Text('${payment.amountMsat ~/ 1000} sat'),
+              subtitle: Text('fee: ${payment.feeMsat ~/ 1000} sat'),
             ),
           );
         });
