@@ -28,8 +28,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  bip39: ^1.0.6
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^4.2.1
+  path_provider: ^2.1.5
   qr_flutter: ^4.1.0
 
 dev_dependencies:
