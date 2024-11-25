@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class BalanceWidget extends StatefulWidget {
   const BalanceWidget({super.key});
 
@@ -13,7 +15,10 @@ class _BalanceWidgetState extends State<BalanceWidget> {
   @override
   void initState() {
     super.initState();
-    _balance = -1;
+    sdk.nodeStateStream.listen((event) {
+      if (event == null) return;
+      setState(() => _balance = event.channelsBalanceMsat ~/ 1000);
+    });
   }
 
   @override
