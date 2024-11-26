@@ -20,7 +20,9 @@ class _ReceivePaymentDialogState extends State<ReceivePaymentDialog> {
     super.initState();
     sdk.invoicePaidStream.listen((event) {
       if (event.paymentHash == _paymentHash) {
-        Navigator.of(context).pop();
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
       }
     });
 

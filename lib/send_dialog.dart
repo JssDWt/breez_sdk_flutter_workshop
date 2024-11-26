@@ -30,15 +30,17 @@ class _SendPaymentDialogState extends State<SendPaymentDialog> {
         TextButton(
           onPressed: () {
             setState(() => _payInProgress = true);
-            sdk
-                .sendPayment(
-                  req: SendPaymentRequest(
-                    bolt11: invoiceController.text,
-                    useTrampoline: true,
-                  ),
-                )
-                .then((_) => Navigator.of(context).pop())
-                .onError((error, stackTrace) => debugPrint("ERROR in sendPayment: $error"));
+            SendPaymentRequest req = SendPaymentRequest(
+              bolt11: invoiceController.text,
+              useTrampoline: true,
+            );
+            sdk.sendPayment(req: req).then((_) {
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+            }).onError((error, stackTrace) {
+              debugPrint("ERROR in sendPayment: $error");
+            });
           },
           child: const Text("OK"),
         ),
