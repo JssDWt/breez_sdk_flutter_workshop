@@ -6,10 +6,29 @@ allprojects {
 }
 
 rootProject.buildDir = "../build"
+
 subprojects {
+    afterEvaluate { project ->
+        if (project.extensions.findByName("android") != null) {
+            String pluginNamespace = project.android.namespace
+            if (pluginNamespace == null) {
+                project.logger.error(
+                        "Warning: Overriding empty namespace in Flutter plugin: "
+                                + project.name
+                                + " to "
+                                + project.group
+                                + " (to work around https://issuetracker.google.com/issues/321392253 on AGP 8.+)."
+                                + "\nIf there is not a new version of " + project.name + ", consider filing an issue against "
+                                + project.name
+                                + " to add namespace to the latest (otherwise try updating to the latest version)."
+                )
+                project.android {
+                    namespace project.group
+                }
+            }
+        }
+    }
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
     project.evaluationDependsOn(":app")
 }
 
