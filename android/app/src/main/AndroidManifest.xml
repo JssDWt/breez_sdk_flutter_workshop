@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Android 13+ -->
+
     <application
         android:label="breez_sdk_flutter_workshop"
         android:name="${applicationName}"
