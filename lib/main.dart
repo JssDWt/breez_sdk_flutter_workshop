@@ -1,9 +1,9 @@
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:breez_sdk/breez_sdk.dart';
 import 'package:breez_sdk/bridge_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:bip39/bip39.dart' as bip39;
 
 import 'app.dart';
 import 'constants.dart';
